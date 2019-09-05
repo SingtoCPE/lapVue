@@ -47,7 +47,7 @@ app.post("/employee/delete", (req, res) => {
 // ---------------------------------------------------------
 app.post("/employee/add", (req, res) => {
   let sql = `INSERT INTO employee.tableEmployee (first_name, age, position, salary, phone) VALUES ('${req.body.first_name}', 
-  ${req.body.age}, '${req.body.position}', ${req.body.salary}, ${req.body.phone});`;
+  ${req.body.age}, '${req.body.position}', ${req.body.salary}, '${req.body.phone}');`;
   db.query(sql, (err, results) => {
     if (err) throw err;
     console.log(results);

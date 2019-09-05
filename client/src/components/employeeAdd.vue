@@ -35,8 +35,8 @@
     </div>
 
     <div class="pb-5 margin-test">
-      <label for="salary">Phone:</label>
-      <input id="salary" v-model="employee.phone" type="number" placeholder="Phone..." />
+      <label for="phone">Phone:</label>
+      <input id="phone" v-model="employee.phone" type="text" placeholder="Phone..." />
     </div>
 
     <button type="submit" id="buttonAdd" @click.prevent="validateForm">ADD</button>
