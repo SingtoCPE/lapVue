@@ -95,33 +95,37 @@ export default {
         this.employee.firstName &&
         this.employee.age &&
         this.employee.position &&
-        this.employee.salary
+        this.employee.salary &&
+        this.employee.phone
       ) {
         this.addEmployee();
       }
       this.errors = [];
+      const nameRex = /^[A-Z]\D[a-z]+/g;
+      const nameResults = nameRex.test(this.employee.firstName);
+      console.log({ nameResults });
 
       const ageRex = /^(0?[1-9]|[1-9][0-9])$/g;
       const ageResults = ageRex.test(this.employee.age);
-      console.log({ageResults});
+      console.log({ ageResults });
 
-      const phoneRex = /^[0]\d{9}/g;
+      const salaryRex = /^(\d+\S)$/g;
+      const salaryResults = salaryRex.test(this.employee.salary);
+      console.log({ salaryResults });
+
+      const phoneRex = /^([0]\d{9})$/g;
       const phoneResults = phoneRex.test(this.employee.phone);
-      console.log({phoneResults});
-
-      const nameRex = /^[A-Z]\D[a-z]+/g;
-      const nameResults = nameRex.test(this.employee.firstName);
-      console.log({nameResults});
-
-      const salaryRex = /^\d{1,10}/g;
-      const salaryResults = salaryRex.test(this.employee.salaryRex);
-      console.log({salaryResults});
+      console.log({ phoneResults });
 
       if (!nameResults || !this.employee.firstName) {
-        this.errors.push("Name must begin with a capital letter, must not be blank !");
+        this.errors.push(
+          "Name must begin with a capital letter, must not be blank !"
+        );
       }
       if (!ageResults || !this.employee.age) {
-        this.errors.push("Age must be a number between 1-100, must not be blank !");
+        this.errors.push(
+          "Age must be a number between 1-100, must not be blank !"
+        );
       }
       if (!this.employee.position) {
         this.errors.push("Position, must not be blank !");
@@ -129,7 +133,7 @@ export default {
       if (!salaryResults || !this.employee.salary) {
         this.errors.push("Salary must be a number, must not be blank !");
       }
-      if (!phoneResults) {
+      if (!phoneResults || !this.employee.phone) {
         this.errors.push("Phone must be a 10 digit number, must not be blank !");
       }
     },
