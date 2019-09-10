@@ -18,7 +18,7 @@
       <legend>
         <h1>Employee Table</h1>
       </legend>
-      <button id="buttonGet" @click="getEmployee()">Get Employee</button>
+      <button id="buttonGet" @click="fetchData">Get Employee</button>
       <table>
         <tr>
           <th>ID</th>
@@ -28,7 +28,7 @@
           <th>SALARY</th>
           <th>PHONE</th>
         </tr>
-        <tr div v-for="item in items" v-bind:key="item.id">
+        <tr div v-for="item in data" v-bind:key="item.id">
           <td>{{item.id}}</td>
           <td>{{item.first_name}}</td>
           <td>{{item.age}}</td>
@@ -36,7 +36,7 @@
           <td>{{item.salary}}</td>
           <td>{{item.phone}}</td>
           <td>
-            <employee-delete :id="item.id" @child-click-delete="deleteEmployee" />
+            <employee-delete :id="item.id"/>
           </td>
         </tr>
       </table>
@@ -47,14 +47,17 @@
 
 <script>
 import axios from "axios";
+import { store } from "./store/store";
+import { mapState } from "vuex";
 import employeeDelete from "@/components/employeeDelete.vue";
 import employeeAdd from "@/components/employeeAdd.vue";
+import { type } from 'os';
 
-const endpoint = "http://localhost:3000/employee";
-const endpointDelete = "http://localhost:3000/employee/delete";
-const endpointAdd = "http://localhost:3000/employee/add";
+const endpoint = "http://localhost:3000/employee/add";
 
 export default {
+  name: "mainPage",
+  store,
   components: {
     employeeDelete,
     employeeAdd
@@ -65,28 +68,17 @@ export default {
       complete: false
     };
   },
+  computed: mapState({
+    data: state => state.data
+  }),
   methods: {
-    async getEmployee() {
-      const { data } = await axios({
-        method: "get",
-        url: endpoint
-      });
-      this.items = [...data];
-    },
-    async deleteEmployee(id) {
-      await axios({
-        method: "post",
-        url: endpointDelete,
-        data: {
-          id
-        }
-      });
-      this.getEmployee();
+    fetchData() {
+      this.$store.dispatch("fetchData");
     },
     async addEmployee(first_name, age, position, salary, phone) {
       const res = await axios({
         method: "post",
-        url: endpointAdd,
+        url: endpoint,
         data: {
           first_name,
           age,
@@ -97,7 +89,7 @@ export default {
       });
       if (res.data) {
         this.complete = true;
-        this.getEmployee();
+        this.fetchData();
       }
     },
     resetComplete({ isReset }) {

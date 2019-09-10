@@ -3,7 +3,7 @@ const fileUpload = require("express-fileupload");
 const bodyParser = require("body-parser");
 const mysql = require("mysql");
 const path = require("path");
-const { check, validationResult } = require('express-validator');
+const { check, validationResult } = require("express-validator");
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(fileUpload());
 app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Origin", "http://localhost:8080"); // update to match the domain you will make the request from
   res.header(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept"
@@ -31,16 +31,16 @@ app.get("/employee", (req, res) => {
   let sql = "SELECT * FROM employee.tableEmployee;";
   db.query(sql, (err, results) => {
     if (err) throw err;
-    console.log(results);
     res.json(results);
   });
 });
 // ---------------------------------------------------------
-app.post("/employee/delete", (req, res) => {
+app.post("/employee/del", (req, res) => {
+  console.log({id:req.body.id});
   let sql = `DELETE FROM employee.tableEmployee WHERE id=${req.body.id};`;
+  
   db.query(sql, (err, results) => {
     if (err) throw err;
-    console.log(results);
     res.json(results);
   });
 });
@@ -50,7 +50,6 @@ app.post("/employee/add", (req, res) => {
   ${req.body.age}, '${req.body.position}', ${req.body.salary}, '${req.body.phone}');`;
   db.query(sql, (err, results) => {
     if (err) throw err;
-    console.log(results);
     res.json(results);
   });
 });

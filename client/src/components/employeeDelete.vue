@@ -5,7 +5,6 @@
 </template>
 
 <script>
-
 export default {
   name: "employeeDelete",
   props: {
@@ -14,9 +13,10 @@ export default {
       default: null
     }
   },
-  methods:{
+  methods: {
     deleteEmployee(id) {
-      this.$emit('child-click-delete',id);
+      console.log("idAtButton:", id);
+      this.$store.dispatch("deleteData", id);      
     }
   }
 };
@@ -30,5 +30,5 @@ export default {
   padding: 2px 10px;
   text-align: center;
   font-size: 15px;
-  }
+}
 </style>
