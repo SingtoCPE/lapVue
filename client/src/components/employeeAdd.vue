@@ -62,9 +62,6 @@ export default {
         salary: "",
         phone: ""
       },
-      nameValidate: "",
-      ageValidate: "",
-      salaryValidate: ""
     };
   },
   watch: {
@@ -72,19 +69,18 @@ export default {
       if (newValue) {
         this.clearForm();
       }
-      this.$emit("reset-complete", { isReset: false });
+      this.$store.commit('setComplete',{isReset:false});
     }
   },
   methods: {
     addEmployee() {
-      this.$emit(
-        "child-clickAdd",
-        this.employee.firstName,
-        this.employee.age,
-        this.employee.position,
-        this.employee.salary,
-        this.employee.phone
-      );
+      this.$store.dispatch("addData", {
+        first_name: this.employee.firstName,
+        age: this.employee.age,
+        position: this.employee.position,
+        salary: this.employee.salary,
+        phone: this.employee.phone
+      }); 
     },
 
     inputAddPosition(position) {

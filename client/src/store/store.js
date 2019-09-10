@@ -5,14 +5,19 @@ Vue.use(Vuex);
 
 const endpoint = "http://localhost:3000/employee";
 const endpointDel = "http://localhost:3000/employee/del";
+const endpointAdd = "http://localhost:3000/employee/add";
 
 export const store = new Vuex.Store({
   state: {
-    data: []
+    data: [],
+    complete:false
   },
   mutations: {
     setData(state, data) {
       state.data = data;
+    },
+    setComplete(state,{ isReset }) {
+      state.complete = isReset;
     }
   },
   actions: {
@@ -24,7 +29,7 @@ export const store = new Vuex.Store({
       console.log({ data });
       commit("setData", data.map(data => data));
     },
-    async deleteData({dispatch}, id) {
+    async deleteData({ dispatch }, id) {
       console.log("idAction:", id);
       const { data } = await axios({
         method: "post",
@@ -35,6 +40,25 @@ export const store = new Vuex.Store({
       });
       dispatch("fetchData");
       console.log({ res: data });
+    },
+    async addData({commit,dispatch},{first_name, age, position, salary, phone}) {
+      const { data } = await axios({
+        method: "post",
+        url: endpointAdd,
+        data: {
+          first_name,
+          age,
+          position,
+          salary,
+          phone
+        }
+      });
+      if({data}){
+        commit('setComplete',{isReset:true})
+      }
+      dispatch("fetchData");
+      
     }
   }
 });
+

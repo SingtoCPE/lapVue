@@ -15,7 +15,6 @@ export default {
   },
   methods: {
     deleteEmployee(id) {
-      console.log("idAtButton:", id);
       this.$store.dispatch("deleteData", id);      
     }
   }

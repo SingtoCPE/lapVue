@@ -9,8 +9,6 @@
       <employee-add
         id="formAdd"
         :complete="complete"
-        @reset-complete="resetComplete"
-        @child-clickAdd="addEmployee"
       />
     </fieldset>
 
@@ -74,26 +72,6 @@ export default {
     fetchData() {
       this.$store.dispatch("fetchData");
     },
-    async addEmployee(first_name, age, position, salary, phone) {
-      const res = await axios({
-        method: "post",
-        url: endpoint,
-        data: {
-          first_name,
-          age,
-          position,
-          salary,
-          phone
-        }
-      });
-      if (res.data) {
-        this.complete = true;
-        this.fetchData();
-      }
-    },
-    resetComplete({ isReset }) {
-      this.complete = isReset;
-    }
   }
 };
 </script>
