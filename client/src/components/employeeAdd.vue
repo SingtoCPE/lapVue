@@ -70,6 +70,7 @@ export default {
         this.clearForm();
       }
       this.$store.commit('setComplete',{isReset:false});
+      console.log("watch");
     }
   },
   methods: {
@@ -108,7 +109,6 @@ export default {
 
       const phoneRex = /^([0]\d{9})$/g;
       const phoneResults = phoneRex.test(this.employee.phone);
-      console.log({ phoneResults });
 
       if (!nameResults || !this.employee.firstName) {
         this.errors.push(
