@@ -24,7 +24,7 @@ export const store = new Vuex.Store({
       console.log({ data });
       commit("setData", data.map(data => data));
     },
-    async deleteData({ commit,dispatch }, id) {
+    async deleteData({dispatch}, id) {
       console.log("idAction:", id);
       const { data } = await axios({
         method: "post",
@@ -33,9 +33,8 @@ export const store = new Vuex.Store({
           id
         }
       });
-      dispatch('fetchData');
-      console.log({res:data});
-      // commit("setData", this.id);
+      dispatch("fetchData");
+      console.log({ res: data });
     }
   }
 });

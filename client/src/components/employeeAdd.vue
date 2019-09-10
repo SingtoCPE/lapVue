@@ -103,15 +103,12 @@ export default {
       this.errors = [];
       const nameRex = /^[A-Z]\D[a-z]+/g;
       const nameResults = nameRex.test(this.employee.firstName);
-      console.log({ nameResults });
 
       const ageRex = /^(0?[1-9]|[1-9][0-9])$/g;
       const ageResults = ageRex.test(this.employee.age);
-      console.log({ ageResults });
 
       const salaryRex = /^(\d+\S)$/g;
       const salaryResults = salaryRex.test(this.employee.salary);
-      console.log({ salaryResults });
 
       const phoneRex = /^([0]\d{9})$/g;
       const phoneResults = phoneRex.test(this.employee.phone);

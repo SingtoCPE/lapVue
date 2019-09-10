@@ -36,7 +36,7 @@
           <td>{{item.salary}}</td>
           <td>{{item.phone}}</td>
           <td>
-            <employee-delete :id="item.id"/>
+            <employee-delete :id="item.id" />
           </td>
         </tr>
       </table>
@@ -51,7 +51,6 @@ import { store } from "./store/store";
 import { mapState } from "vuex";
 import employeeDelete from "@/components/employeeDelete.vue";
 import employeeAdd from "@/components/employeeAdd.vue";
-import { type } from 'os';
 
 const endpoint = "http://localhost:3000/employee/add";
 
